@@ -60,7 +60,7 @@ static void encodeDelta(unsigned char*& data, size_t& offset, unsigned int v)
 
 size_t meshopt_encodeStripBuffer(unsigned char* buffer, size_t buffer_size, const unsigned int* indices, size_t index_count, size_t triangle_count)
 {
-	(void)buffer;
+	// TODO
 	(void)buffer_size;
 
 	// 2bit * triangle_count
@@ -187,5 +187,6 @@ size_t meshopt_encodeStripBufferBound(size_t index_count, size_t vertex_count)
 {
 	(void)vertex_count;
 
-	return index_count * 100;
+	// TODO
+	return index_count * 10;
 }
