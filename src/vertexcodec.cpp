@@ -674,13 +674,15 @@ static const unsigned char* decodeBytesSimd(const unsigned char* data, const uns
 	size_t i = 0;
 
 	// fast-path: process 4 groups at a time, do a shared bounds check - each group reads <=32b
-	for (; i + kByteGroupSize <= buffer_size && size_t(data_end - data) >= kTailMaxSize; i += kByteGroupSize)
+	for (; i + kByteGroupSize * 4 <= buffer_size && size_t(data_end - data) >= kTailMaxSize * 4; i += kByteGroupSize * 4)
 	{
 		size_t header_offset = i / kByteGroupSize;
 		unsigned char header_byte = header[header_offset / 4];
-		int shift = (i % 4) * 2;
 
-		data = decodeBytesGroupSimd(data, buffer + i, (header_byte >> shift) & 3);
+		data = decodeBytesGroupSimd(data, buffer + i + kByteGroupSize * 0, (header_byte >> 0) & 3);
+		data = decodeBytesGroupSimd(data, buffer + i + kByteGroupSize * 1, (header_byte >> 2) & 3);
+		data = decodeBytesGroupSimd(data, buffer + i + kByteGroupSize * 2, (header_byte >> 4) & 3);
+		data = decodeBytesGroupSimd(data, buffer + i + kByteGroupSize * 3, (header_byte >> 6) & 3);
 	}
 
 	// slow-path: process remaining groups
