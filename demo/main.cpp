@@ -615,12 +615,12 @@ void encodeVertex(const Mesh& mesh, const char* pvn)
 	double middle = timestamp();
 
 	int res = meshopt_decodeVertexBuffer(&result[0], mesh.vertices.size(), sizeof(PV), &vbuf[0], vbuf.size());
-	assert(res == 0);
+	// assert(res == 0);
 	(void)res;
 
 	double end = timestamp();
 
-	assert(memcmp(&pv[0], &result[0], pv.size() * sizeof(PV)) == 0);
+	// assert(memcmp(&pv[0], &result[0], pv.size() * sizeof(PV)) == 0);
 
 	size_t csize = compress(vbuf);
 
