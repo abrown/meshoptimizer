@@ -677,7 +677,7 @@ static const unsigned char* decodeBytesSimd(const unsigned char* data, const uns
 	for (; i + kByteGroupSize <= buffer_size && size_t(data_end - data) >= kTailMaxSize; i += kByteGroupSize)
 	{
 		size_t header_offset = i / kByteGroupSize;
-		unsigned char header_byte = header[header_offset / 4];
+		unsigned char header_byte = header[header_offset];
 		int shift = (i % 4) * 2;
 
 		data = decodeBytesGroupSimd(data, buffer + i, (header_byte >> shift) & 3);
